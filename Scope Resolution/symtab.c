@@ -8,7 +8,7 @@ int cur_scope = 0;
 int declare = 0; // 1: declaring, 0: not
 
 void init_hash_table(){
-	int i; 
+	int i;
 	hash_table = malloc(SIZE * sizeof(list_t*));
 	for(i = 0; i < SIZE; i++) hash_table[i] = NULL;
 }
@@ -23,23 +23,23 @@ unsigned int hash(char *key){
 void insert(char *name, int len, int type, int lineno){
 	unsigned int hashval = hash(name);
 	list_t *l = hash_table[hashval];
-	
+
 	while ((l != NULL) && (strcmp(name,l->st_name) != 0)) l = l->next;
-	
+
 	/* variable not yet in table */
 	if (l == NULL){
 		/* set up entry */
 		l = (list_t*) malloc(sizeof(list_t));
-		strncpy(l->st_name, name, len);  
+		strncpy(l->st_name, name, len);
 		l->st_type = type;
 		l->scope = cur_scope;
 		l->lines = (RefList*) malloc(sizeof(RefList));
 		l->lines->lineno = lineno;
 		l->lines->next = NULL;
-		
+
 		/* add to hashtable */
 		l->next = hash_table[hashval];
-		hash_table[hashval] = l; 
+		hash_table[hashval] = l;
 		printf("Inserted %s for the first time with linenumber %d!\n", name, lineno);
 	}
 	/* found in table */
@@ -49,7 +49,7 @@ void insert(char *name, int len, int type, int lineno){
 			/* find last reference */
 			RefList *t = l->lines;
 			while (t->next != NULL) t = t->next;
-			
+
 			/* add linenumber to reference list */
 			t->next = (RefList*) malloc(sizeof(RefList));
 			t->next->lineno = lineno;
@@ -67,19 +67,19 @@ void insert(char *name, int len, int type, int lineno){
 			else{
 				/* set up entry */
 				l = (list_t*) malloc(sizeof(list_t));
-				strncpy(l->st_name, name, len);  
+				strncpy(l->st_name, name, len);
 				l->st_type = type;
 				l->scope = cur_scope;
 				l->lines = (RefList*) malloc(sizeof(RefList));
 				l->lines->lineno = lineno;
 				l->lines->next = NULL;
-				
+
 				/* add to hashtable */
 				l->next = hash_table[hashval];
-				hash_table[hashval] = l; 
+				hash_table[hashval] = l;
 				printf("Inserted %s for a new scope with linenumber %d!\n", name, lineno);
-			}	
-		}		
+			}
+		}
 	}
 }
 
@@ -114,16 +114,16 @@ void incr_scope(){ /* go to next scope */
 	cur_scope++;
 }
 
-/* print to stdout by default */ 
-void symtab_dump(FILE * of){  
+/* print to stdout by default */
+void symtab_dump(FILE * of){
   int i;
   fprintf(of,"------------ ------ ------ ------------\n");
   fprintf(of,"Name         Type   Scope  Line Numbers\n");
   fprintf(of,"------------ ------ ------ ------------\n");
-  for (i=0; i < SIZE; ++i){ 
-	if (hash_table[i] != NULL){ 
+  for (i=0; i < SIZE; ++i){
+	if (hash_table[i] != NULL){
 		list_t *l = hash_table[i];
-		while (l != NULL){ 
+		while (l != NULL){
 			RefList *t = l->lines;
 			fprintf(of,"%-12s ",l->st_name);
 			if (l->st_type == INT_TYPE) fprintf(of,"%-7s","int");

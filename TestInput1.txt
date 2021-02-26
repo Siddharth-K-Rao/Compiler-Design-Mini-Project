@@ -1,0 +1,7 @@
+import hWorld
+x=10
+y=10
+a=11
+
+abc = "xyz"
+a=10

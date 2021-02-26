@@ -23,14 +23,14 @@ typedef struct Param{
 	// parameter type and name
 	int par_type;
 	char param_name[MAXTOKENLEN];
-	
+
 	// to store the value
 	int ival; double fval; char *st_sval;
 	int passing; // value or reference
 }Param;
 
 /* a linked list of references (lineno's) for each variable */
-typedef struct RefList{ 
+typedef struct RefList{
     int lineno;
     struct RefList *next;
 }RefList;
@@ -42,25 +42,25 @@ typedef struct list_t{
     int st_size;
     int scope;
     RefList *lines;
-    
+
 	// to store value and sometimes more information
 	int st_ival; double st_fval; char *st_sval;
-	
+
 	// type
     int st_type;
-    
+
     // for arrays (info type), for pointers (pointing type)
 	// and for functions (return type)
 	int inf_type;
-	
+
 	// array stuff
 	int *i_vals; double *f_vals; char **s_vals;
 	int array_size;
-	
+
 	// function parameters
 	Param *parameters;
 	int num_of_pars;
-	
+
 	// pointer to next item in the list
 	struct list_t *next;
 }list_t;
@@ -70,7 +70,7 @@ static list_t **hash_table;
 
 // Function Declarations
 void init_hash_table(); // initialize hash table
-unsigned int hash(char *key); // hash function 
+unsigned int hash(char *key); // hash function
 void insert(char *name, int len, int type, int lineno); // insert entry
 list_t *lookup(char *name); // search for entry
 void hide_scope(); // hide the current scope
