@@ -86,6 +86,8 @@ void symtab_dump();
 int cur_scope = 0;
 int declare = 0; // 1: declaring, 0: not
 
+int indent_scope = 0;
+
 void init_hash_table(){
 	int i;
 	hash_table = malloc(SIZE * sizeof(list_t*));
