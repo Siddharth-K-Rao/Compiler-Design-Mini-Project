@@ -74,8 +74,9 @@ double_quote_string \"([^\"\n])*\"
 [ ] {}
 "\n"  {yycolumn=1; display_token("NL"); return T_newLine;}
 
-[\t]+ {
-        indent_depth = strlen(yytext);
+[\t]* {
+        printf("--------Test0-------");
+        indent_depth = strlen(yytext) + 1;
         printf("indent_depth: %d ",  indent_depth);
         indentation_type = indent_type(indent_depth);
         if(indentation_type == 1) return Dedent;

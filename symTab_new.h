@@ -71,14 +71,22 @@ typedef struct list_t{
 /* the hash table */
 static list_t **hash_table;
 
+// Variable Declarations
+extern int indent_depth;
+
 // Function Declarations
+
+extern int pop();
+extern int peek();
 void init_hash_table(); // initialize hash table
 unsigned int hash(char *key); // hash function
 void insert(char* type, char* name, int lineno, int len); // insert entry
 list_t *lookup(char *name); // search for entry
 void hide_scope(); // hide the current scope
 void incr_scope(); // go to next scope
+void reset_depth();
 void symtab_dump();
+void updateCScope(int scope);
 
 //-----------------------------------------------Function Implementation Starts Here--------------------------------------------------------------
 
@@ -170,6 +178,11 @@ list_t *lookup(char *name){ /* return symbol if found or NULL if not found */
 	return l;
 }
 
+void updateCScope(int scope)
+{
+    cur_scope = scope;
+}
+
 void hide_scope(){ /* hide the current scope */
 	// list_t *l;
 	// int i;
@@ -192,6 +205,12 @@ void hide_scope(){ /* hide the current scope */
 
 void incr_scope(){ /* go to next scope */
 	cur_scope++;
+}
+
+void reset_depth()
+{
+    while(peek()) pop();
+    indent_depth = 10;
 }
 
 /* print to stdout by default */

@@ -43,7 +43,7 @@ term : T_identifier {insert("Identifier", $<data>1, @1.first_line, strlen($<data
 
 list_index : T_identifier T_openBracket constant T_closeBracket {};
 
-StartParse : T_newLine StartParse | finalStatements T_newLine StartParse |;
+StartParse : T_newLine StartParse | finalStatements T_newLine {reset_depth();} StartParse | ;
 
 basic_stmt : pass_stmt
            | break_stmt
@@ -120,14 +120,15 @@ range_args : T_number T_comma T_number T_comma T_number {insert("Constant", $<da
 while_stmt : T_while bool_exp T_colon start_suite;
 
 start_suite : basic_stmt
-            | T_newLine Indent {incr_scope();} finalStatements suite;
+            | T_newLine Indent finalStatements suite;
 
 suite : T_newLine Nodent finalStatements suite
       | T_newLine end_suite;
 
-end_suite : Dedent {hide_scope();} finalStatements
-          | Dedent {hide_scope();}
-
+end_suite : Dedent finalStatements
+          | Dedent
+          | finalStatements
+          | {reset_depth();};
 
 args : T_identifier {insert("Identifier", $<data>1, @1.first_line, strlen($<data>1));} args_list | ;
 
