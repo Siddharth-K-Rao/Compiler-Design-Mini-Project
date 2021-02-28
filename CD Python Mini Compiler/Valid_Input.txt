@@ -1,0 +1,30 @@
+#Importing Packages
+import math
+
+#Definitions
+x = 10
+y = 20
+z = x + y
+
+Alist = [10, 70, 50, 30]
+print(Alist[0])
+
+def calculate(a, b):
+	flag = 1
+	while(flag == 1):
+		if(b == 0):
+			res = 0
+		else:
+			res = a/b
+		flag = 0
+
+calculate(x, y)
+
+if(x > 0):
+	print("Positive")
+elif(x == 0):
+	print("Zero")
+else:
+	print("Negative")
+
+

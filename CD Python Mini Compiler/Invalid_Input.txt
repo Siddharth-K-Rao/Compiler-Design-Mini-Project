@@ -1,0 +1,38 @@
+#Importing Packages
+import math
+
+#Definitions
+x = 10
+y = 20
+z = x + y
+
+Alist = [10, 70, 50, 30]
+print(Alist[0])
+
+#Error1
+n = 1
+print(n[0])
+
+def calculate(a, b):
+	flag = 1
+	k = 1
+	while(flag == 1):
+		if(b == 0):
+			res = 0
+		#Error2
+		flag = 2
+		else:
+			res = a/b
+		flag = 0
+
+calculate(x, y)
+#Error3
+b = k + 1
+
+if(x > 0):
+	#Error4
+	print("Positive")
+elif(x == 0):
+	print("Zero")
+else:
+	print("Negative")

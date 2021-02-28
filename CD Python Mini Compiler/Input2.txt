@@ -1,0 +1,28 @@
+#Basic Code
+
+import scipy
+
+x = 2
+y = 1
+
+b = 's'
+
+f = None
+
+z = 1
+
+m = range(5,10,2)
+
+z = ['a', 'b', 'c', 'd']
+a = 3
+b = 4
+d = a+b
+
+if(x==1):
+	c=1
+	a = "dog"
+elif(y==1):
+	c=2
+else:
+	c=1
+
