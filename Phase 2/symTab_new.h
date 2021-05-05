@@ -81,6 +81,15 @@ void insert(char *type, char *name, int lineno, int len, char *val){
 		hash_table[hashval] = l;
 	}
 	
+	else if (l != NULL && strcmp(val, "null")!=0){
+			strcpy(l->symbolTable_type, type);
+			Reference_List *t = l->lines;
+			while (t->next != NULL) t = t->next;
+			t->next = (Reference_List*) malloc(sizeof(Reference_List));
+			t->next->lineno = lineno;
+			strncpy(l->value,val,strlen(val));
+			t->next->next = NULL;
+	}
 	else{
 			strcpy(l->symbolTable_type, type);
 			Reference_List *t = l->lines;
@@ -114,6 +123,15 @@ Table_List *lookup(char *name){
 	return l;
 }
 
+Table_List *lookup_func(char *name){
+	unsigned int hashval = hash(name);
+	Table_List *l = hash_table[hashval];
+	while ((l != NULL) && (strcmp(name,l->symbolTable_name) != 0)) l = l->next;
+	while((l != NULL) && (l->scope == 0)){
+		 l = l->next;
+	}
+	return l;
+}
 
 void reset_depth()
 {

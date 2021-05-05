@@ -1,0 +1,20 @@
+#Importing Packages
+import math
+
+#Definitions
+g = 100 / 10
+j = 10
+a = j + 20 * g
+x = 10
+x = 99
+while(x>=10):
+	u = 10*10
+	x = x + 10
+	v = 20
+def myfunc(s, t):
+	xyz = 200
+	return
+	j = 10 + 4 * 10
+	k = 20 + 1
+myfunc(1, 3)
+
